@@ -1,4 +1,6 @@
-RewriteEngine On
+RewriteEngine on
+RewriteBase /ECommerce/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+RewriteCond $1 !^(index\.php|js|img|css|captcha|robots\.txt)
+RewriteRule ^(.*)$ ./index.php/$1 [L]
