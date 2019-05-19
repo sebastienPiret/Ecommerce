@@ -2,14 +2,14 @@ DROP DATABASE ecommerce;
 CREATE DATABASE ecommerce CHARACTER SET 'utf8';
 USE ecommerce;
 
-DROP TABLE role;
+DROP TABLE IF EXISTS role;
 CREATE TABLE IF NOT EXISTS role
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50))ENGINE=INNODB;
 
 INSERT INTO role VALUES (1, 'customer'),(2, 'admin');  
 
-DROP TABLE adress;
+DROP TABLE IF EXISTS adress;
 CREATE TABLE IF NOT EXISTS adress
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     street VARCHAR(250) NOT NULL,
@@ -23,7 +23,7 @@ INSERT INTO adress (street,numero) VALUES
     ('rue de bien','2'),
     ('rue paul Pastur','5');
  
-DROP TABLE cities;
+DROP TABLE IF EXISTS cities;
 CREATE TABLE IF NOT EXISTS cities
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     postal CHAR(4) NOT NULL,
@@ -34,7 +34,7 @@ INSERT INTO cities (postal,city) VALUES
     ('6000','CHarleroi'),
     ('7100','Mons');
  
- DROP TABLE utilisateur;
+ DROP TABLE IF EXISTS utilisateur;
  CREATE TABLE IF NOT EXISTS utilisateur
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(100),
@@ -46,12 +46,13 @@ INSERT INTO cities (postal,city) VALUES
     mdp VARCHAR(100) NOT NULL,
     role INT DEFAULT 1,
     FOREIGN KEY (adress) REFERENCES adress(id),
-    FOREIGN KEY (city) REFERENCES cities(id))ENGINE=INNODB;
+    FOREIGN KEY (city) REFERENCES cities(id),
+    FOREIGN KEY (role) REFERENCES role(id))ENGINE=INNODB;
     
 INSERT INTO utilisateur (nom,prenom,mail,adress,city,login,mdp,role) VALUES
 	('Piret','Sebastien','sebpiret@gmail.com',2,1,'login','mdp',2);
 
-DROP TABLE categories;
+DROP TABLE IF EXISTS categories;
 CREATE TABLE IF NOT EXISTS categories
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(100))ENGINE=INNODB;
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS categories
 INSERT INTO categories (nom) VALUES
 	('pizzas'),('pains'),('burgers'),('viennoiseries');
 
-DROP TABLE item;
+DROP TABLE IF EXISTS item;
 CREATE TABLE IF NOT EXISTS item
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(150),
@@ -84,7 +85,7 @@ INSERT INTO item (nom,price,categorie) VALUES
     ('croissant',1,4),
     ('pain au chocolat',1,4);
     
-DROP TABLE statut;
+DROP TABLE IF EXISTS statut;
 CREATE TABLE IF NOT EXISTS statut
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(100))ENGINE=INNODB;
@@ -94,7 +95,7 @@ INSERT INTO statut (id,nom) VALUES
     (2,'accepté'),
     (3,'refusé');
  
- DROP TABLE commande;
+ DROP TABLE IF EXISTS commande;
  CREATE TABLE IF NOT EXISTS commande
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     utilisateur INT NOT NULL,
@@ -105,7 +106,7 @@ INSERT INTO statut (id,nom) VALUES
 INSERT INTO commande (utilisateur) VALUES
 	(1);
     
-DROP TABLE commande_validee;
+DROP TABLE IF EXISTS commande_validee;
 CREATE TABLE IF NOT EXISTS commande_validee
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     commande INT NOT NULL,
@@ -114,7 +115,7 @@ CREATE TABLE IF NOT EXISTS commande_validee
     quantity INT unsigned DEFAULT 1,
     FOREIGN KEY (commande) REFERENCES commande(id),
     FOREIGN KEY (item) REFERENCES item(id))ENGINE=INNODB;
- 
+
 SET SQL_SAFE_UPDATES = 0;
 UPDATE cities SET city = LOWER(city) ;
 UPDATE adress SET street = LOWER(street);

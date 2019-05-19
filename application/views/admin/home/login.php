@@ -20,12 +20,17 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user">
+                                <div>
+                                    <?php if ($this->session->flashdata('alert-warning')):
+                                     echo $this->session->flashdata('alert-warning');
+                                    endif; ?>
+                                </div>
+                                <form class="user" action="<?php echo site_url('admin/checkAdmin')?>" method="post">
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                        <input type="email" name="mail" value="<?php echo set_value('mail'); ?>" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" name="mdp" value="<?php echo set_value('mdp'); ?>"  class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -33,8 +38,7 @@
                                             <label class="custom-control-label" for="customCheck">Remember Me</label>
                                         </div>
                                     </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Login
+                                    <INPUT TYPE = "Submit" Name = "Submit1" VALUE = "Login" class="btn btn-primary btn-user btn-block">
                                     </a>
 
 
