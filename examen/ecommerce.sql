@@ -1,4 +1,4 @@
-DROP DATABASE ecommerce;
+DROP DATABASE IF EXISTS ecommerce;
 CREATE DATABASE ecommerce CHARACTER SET 'utf8';
 USE ecommerce;
 
@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS item
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(150),
     price FLOAT unsigned,
+    path VARCHAR(200),
     categorie INT,
     FOREIGN KEY (categorie) REFERENCES categories(id))ENGINE=INNODB;
 
@@ -100,11 +101,12 @@ INSERT INTO statut (id,nom) VALUES
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     utilisateur INT NOT NULL,
     statut INT DEFAULT 1,
+    date_commande DATETIME,
     FOREIGN KEY (utilisateur) REFERENCES utilisateur(id),
     FOREIGN KEY (statut) REFERENCES statut(id))ENGINE=INNODB;
 
-INSERT INTO commande (utilisateur) VALUES
-	(1);
+INSERT INTO commande (utilisateur,date_commande) VALUES
+	(1,now());
     
 DROP TABLE IF EXISTS commande_validee;
 CREATE TABLE IF NOT EXISTS commande_validee

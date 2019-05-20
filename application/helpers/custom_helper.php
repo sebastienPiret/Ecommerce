@@ -5,8 +5,18 @@
 
 function setFlashdata($class,$message,$url)
 {
-    $ci=get_instance();
-    $ci->session->set_flashdata($class,$message);
+    $CI=get_instance();
+    $CI->session->set_flashdata('class',$class);
+    $CI->session->set_flashdata('message',$message);
     redirect($url);
 
+}
+
+function adminLoggedIn(){
+    $CI=get_instance();
+    if ($CI->session->userdata('id')){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
 }

@@ -20,6 +20,36 @@ class Admin extends CI_Controller
         }
     }
 
+    public function category()
+    {
+        if(adminLoggedIn()){
+            $this->load->view('admin/header/header');
+            $this->load->view('admin/header/css');
+            $this->load->view('admin/header/navbar');
+            $this->load->view('admin/home/category');
+            $this->load->view('admin/header/footer');
+            $this->load->view('admin/header/specialJs');
+            $this->load->view('admin/header/closehtml');
+        }else{
+            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
+    public function item()
+    {
+        if(adminLoggedIn()){
+            $this->load->view('admin/header/header');
+            $this->load->view('admin/header/css');
+            $this->load->view('admin/header/navbar');
+            $this->load->view('admin/home/item');
+            $this->load->view('admin/header/footer');
+            $this->load->view('admin/header/specialJs');
+            $this->load->view('admin/header/closehtml');
+        }else{
+            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
     public function login()
     {
         $this->load->view('admin/header/header');
@@ -71,5 +101,94 @@ class Admin extends CI_Controller
             setFlashdata('alert-warning','Please enter your mail and/or password.','admin/login');
         }
 
+    }
+
+    public function addCategory(){
+        if(adminLoggedIn())
+        {
+            $data['nom']=$this->input->post('categoryName','TRUE');
+            if(!empty($data)){
+                $this->modAdmin->addNewCategory($data);
+                setFlashdata('alert-success','Category is correctly added.','admin/category');
+            }else{
+                setFlashdata('alert-danger','Category name is required.','admin/category');
+            }
+        }else{
+            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
+    public function addItem(){
+
+        if(adminLoggedIn())
+        {
+            $data['nom']=$this->input->post('itemName',true);
+
+            if(!empty($data['nom'])){
+                $path=realpath(APPPATH.'../assets/custom/img/item/');
+                $config['upload_path']          = $path;
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 200;
+                $config['max_width']            = 400;
+                $config['max_height']           = 400;
+
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('itemImg')){
+                    $error=$this->upload->display_errors();
+                    setFlashdata('danger',$error,'admin/item');
+                }else{
+                    $fileName=$this->upload->data('file_name');
+                    $data['path']=$fileName;
+                    $data['price']=$this->input->post('itemPrice',true);
+                    $data['categorie']=$this->input->post('itemCategory',true)+1;
+                }
+                $checkData=$this->modAdmin->checkItem($data);
+                if($checkData->num_rows()>0){
+                    setFlashdata('alert-danger','this item already exists.','admin/item');
+                }else{
+                    $addData=$this->modAdmin->addItem($data);
+                    if($addData){
+                        setFlashdata('alert-success','You\'ve successfully added your item.','admin/item');
+                    }else{
+                        setFlashdata('alert-warning','your item isn\'t successfully added.','admin/item');
+                    }
+                }
+
+            }else{
+                setFlashdata('alert-warning','Item name is required.','admin/item');
+            }
+        }else{
+            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
+    public function showAllItem()
+    {
+        if(adminLoggedIn()){
+            $config['base_url']=site_url('admin/showAllItem');
+            $totalRows= $this->modAdmin->getAllItem();
+
+            $config['total_rows']=$totalRows;
+            $config['per_page']=5;
+            $config['uri_segment']=3;
+            $this->load->library('pagination');
+
+            $this->pagination->initialize($config);
+            $page=($this->uri->segment(3))? $this->uri->segment(3):0;
+
+            $data['allItems']=$this->modAdmin->fetchAllItem($config['per_page'],$page);
+
+            $data['links']= $this->pagination->create_links();
+
+            $this->load->view('admin/header/header');
+            $this->load->view('admin/header/css');
+            $this->load->view('admin/header/navbar');
+            $this->load->view('admin/home/showItem',$data);
+            $this->load->view('admin/header/footer');
+            $this->load->view('admin/header/specialJs');
+            $this->load->view('admin/header/closehtml');
+        }else{
+            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+        }
     }
 }
