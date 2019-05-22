@@ -16,7 +16,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/header/specialJs');
             $this->load->view('admin/header/closehtml');
         }else{
-            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
         }
     }
 
@@ -31,7 +31,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/header/specialJs');
             $this->load->view('admin/header/closehtml');
         }else{
-            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
         }
     }
 
@@ -46,7 +46,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/header/specialJs');
             $this->load->view('admin/header/closehtml');
         }else{
-            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
         }
     }
 
@@ -107,7 +107,7 @@ class Admin extends CI_Controller
         if(adminLoggedIn())
         {
             $data['nom']=$this->input->post('categoryName','TRUE');
-            if(!empty($data)){
+            if(!empty($data['nom'])){
                 $this->modAdmin->addNewCategory($data);
                 setFlashdata('alert-success','Category is correctly added.','admin/category');
             }else{
@@ -135,7 +135,7 @@ class Admin extends CI_Controller
                 $this->load->library('upload', $config);
                 if (!$this->upload->do_upload('itemImg')){
                     $error=$this->upload->display_errors();
-                    setFlashdata('danger',$error,'admin/item');
+                    setFlashdata('alert-danger',$error,'admin/item');
                 }else{
                     $fileName=$this->upload->data('file_name');
                     $data['path']=$fileName;
@@ -158,7 +158,7 @@ class Admin extends CI_Controller
                 setFlashdata('alert-warning','Item name is required.','admin/item');
             }
         }else{
-            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
         }
     }
 
@@ -188,7 +188,93 @@ class Admin extends CI_Controller
             $this->load->view('admin/header/specialJs');
             $this->load->view('admin/header/closehtml');
         }else{
-            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
         }
+    }
+
+    public function editItem($id)
+    {
+        if(adminLoggedIn()){
+            if(!empty($id) && isset($id))
+            {
+                $data['item']=$this->modAdmin->checkItemById($id);
+                if(count($data['item']) == 1)
+                {
+                    $this->load->view('admin/header/header');
+                    $this->load->view('admin/header/css');
+                    $this->load->view('admin/header/navbar');
+                    $this->load->view('admin/home/editItem',$data);
+                    $this->load->view('admin/header/footer');
+                    $this->load->view('admin/header/specialJs');
+                    $this->load->view('admin/header/closehtml');
+                }else{
+                    setFlashdata('alert-danger','Item not found.','admin/showAllItem');
+                }
+            }else{
+                setFlashdata('alert-danger','Something went wrong.','admin/showAllItem');
+            }
+
+        }else{
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
+    public function updateItem()
+    {
+        if(adminLoggedIn()){
+            $data['nom']=$this->input->post('itemName',true);
+            $XID=$this->input->post('XID',true);
+            $oldImage=$this->input->post('oldImage',true);
+            if(!empty($data['nom']) && isset($data['nom']))
+            {
+                if(isset($_FILES['itemImg']) && is_uploaded_file($_FILES['itemImg']['tmp_name']))
+                {
+                    $path=realpath(APPPATH.'../assets/custom/img/item/');
+                    $config['upload_path']          = $path;
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 200;
+                    $config['max_width']            = 400;
+                    $config['max_height']           = 400;
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('itemImg')){
+                        $error=$this->upload->display_errors();
+                        setFlashdata('alert-danger',$error,'admin/editItem/'.$XID);
+                    }else{
+                        $fileName=$this->upload->data('file_name');
+                        $data['path']=$fileName;
+                    }
+                }
+                $data['price']=$this->input->post('itemPrice',true);
+                $data['categorie']=$this->input->post('itemCategory',true)+1;
+
+                $reply=$this->modAdmin->updateItem($data,$XID);
+                if($reply)
+                {
+                    if(!empty($data['path']) && isset($data['path']) && $oldImage!='no.png')
+                    {
+                        echo $oldImage;
+                        if (file_exists($path.'/'.$oldImage) && $oldImage != 'no.png')
+                        {
+                            unlink($path.'/'.$oldImage);
+
+                        }
+                    }
+                    setFlashdata('alert-success','You\'ve successfully updated your item.','admin/editItem/'.$XID);
+                }else{
+                    setFlashdata('alert-danger','Something went wrong, please retry later.','admin/editItem/'.$XID);
+                }
+            }else{
+                setFlashdata('alert-danger','Item name is required.','admin/editItem/'.$XID);
+            }
+
+        }else{
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
+    public function deleteItem()
+    {
+
     }
 }

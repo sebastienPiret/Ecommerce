@@ -31,21 +31,21 @@
                                 <?php echo $item->nom; ?>
                             </td>
                             <td>
-                                <?php echo $item->price.'euros'; ?>
+                                <?php echo $item->price.' euros'; ?>
                             </td>
                             <td>
-                                <?php echo $item->categorie; ?>
+                                <?php echo $item->nomCategorie; ?>
                             </td>
                             <td>
-                                <img src="<?php echo $item->path; ?>">
+                                <img src="<?php echo base_url('assets/custom/img/item/'.$item->path) ?>" class="img-responsive img-edit">
                             </td>
                             <td>
-                                <a href="" class="btn btn-info">
+                                <a href="<?php echo site_url('admin/editItem/'.$item->id); ?>" class="btn btn-info">
                                     Edit
                                 </a>
                             </td>
                             <td>
-                                <a href="" class="btn btn-danger">
+                                <a href="<?php echo site_url('admin/deleteItem/'.$item->id); ?>" class="btn btn-danger">
                                     Delete
                                 </a>
                             </td>
