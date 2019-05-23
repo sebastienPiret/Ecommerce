@@ -54,6 +54,7 @@
                         <?php echo form_upload('itemImg','','class="form-control-file"'); ?>
                     </div>
                 </div>
+                <p style="color: red;">Image must be maximum 400 px height and width.</p>
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <?php echo form_submit('updateItem','Update','class="btn btn-primary"'); ?>

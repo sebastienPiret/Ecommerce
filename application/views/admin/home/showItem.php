@@ -21,12 +21,15 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Show item</h6>
             </div>
+            <div class="erreur" style="color: red;">
+
+            </div>
             <div class="card-body">
 
                 <?php if($allItems): ?>
                     <table class="table table-dashed">
                     <?php foreach ($allItems as $item): ?>
-                        <tr>
+                        <tr class="cItem<?php echo $item->id ?>">
                             <td>
                                 <?php echo $item->nom; ?>
                             </td>
@@ -45,7 +48,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="<?php echo site_url('admin/deleteItem/'.$item->id); ?>" class="btn btn-danger">
+                                <a href="javascript:void(0)" class="btn btn-danger delitem" data-id="<?php echo $item->id; ?>" data-text="<?php echo $this->encryption->encrypt($item->id); ?>">
                                     Delete
                                 </a>
                             </td>

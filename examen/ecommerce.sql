@@ -63,28 +63,31 @@ INSERT INTO categories (nom) VALUES
 DROP TABLE IF EXISTS item;
 CREATE TABLE IF NOT EXISTS item
 	(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    nom VARCHAR(150),
+    nom VARCHAR(150) ,
     price FLOAT unsigned,
-    path VARCHAR(200),
+    path VARCHAR(200) DEFAULT 'no.png',
     categorie INT,
     FOREIGN KEY (categorie) REFERENCES categories(id))ENGINE=INNODB;
 
 INSERT INTO item (nom,price,categorie) VALUES
-	('4 fromages',10.0,1),
-    ('margherita',8.0,1),
-    ('Napolitaine',10.0,1),
-    ('Quattro stagioni',11.0,1),
-    ('mare nostrum',14.0,1),
-    ('carré blanc',2.15,2),
-    ('carré gris',2.15,2),
-    ('campagnard',2.5,2),
-    ('traditionnel',2.5,2),
-    ('beef burger',5.0,3),
-    ('cheese burger',6.0,3),
-    ('double cheese burger',7.5,3),
-    ('giant',8.0,3),
-    ('croissant',1,4),
-    ('pain au chocolat',1,4);
+	('4 fromages',10.0,1);
+
+
+INSERT INTO item (nom,price,categorie,path) VALUES
+    ('margherita',8.0,1,'margherita.jpg'),
+    ('Napolitaine',10.0,1,'napolitaine.jpg'),
+    ('Quattro stagioni',11.0,1,'4saisons.jpg'),
+    ('mare nostrum',14.0,1,'fruitmer.jpg'),
+    ('carré blanc',2.15,2,'carreBlanc.jpg'),
+    ('carré gris',2.15,2,'carreGris.jpg'),
+    ('campagnard',2.5,2,'painCampagne.jpg'),
+    ('traditionnel',2.5,2,'painTradi.jpg'),
+    ('beef burger',5.0,3,'hamburger.jpg'),
+    ('cheese burger',6.0,3,'cheeseBurger.jpg'),
+    ('double cheese burger',7.5,3,'doubleCheese.jpg'),
+    ('giant',8.0,3,'giant.jpg'),
+    ('croissant',1.5,4,'croissant.jpg'),
+    ('pain au chocolat',1.5,4,'painChocolat.jpg');
     
 DROP TABLE IF EXISTS statut;
 CREATE TABLE IF NOT EXISTS statut

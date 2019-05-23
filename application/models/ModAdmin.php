@@ -38,7 +38,7 @@ class ModAdmin extends CI_Model
 
     public function addItem($data)
     {
-        $this->db->insert('item',$data);
+        return $this->db->insert('item',$data);
     }
 
     public function getAllItem()
@@ -75,5 +75,19 @@ class ModAdmin extends CI_Model
     {
         $this->db->where('id',$id);
         return $this->db->update('item',$data);
+    }
+
+    public function getImageItem($id)
+    {
+        return $this->db->select('path')
+            ->from('item')
+            ->where('id',$id)
+            ->get()
+            ->result_array();
+    }
+
+    public function deleteItem($id)
+    {
+        return $this->db->delete('item',array('id'=>$id));
     }
 }

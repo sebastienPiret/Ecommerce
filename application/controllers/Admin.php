@@ -197,7 +197,7 @@ class Admin extends CI_Controller
         if(adminLoggedIn()){
             if(!empty($id) && isset($id))
             {
-                $data['item']=$this->modAdmin->checkItemById($id);
+                $data['item']=$this->modAdmin->checkItemById($id); // getting the info from db where row is id
                 if(count($data['item']) == 1)
                 {
                     $this->load->view('admin/header/header');
@@ -251,12 +251,11 @@ class Admin extends CI_Controller
                 $reply=$this->modAdmin->updateItem($data,$XID);
                 if($reply)
                 {
-                    if(!empty($data['path']) && isset($data['path']) && $oldImage!='no.png')
+                    if(!empty($data['path']) && isset($data['path']) && $oldImage!='no.png') // we check we have an image name, and it is not the default one
                     {
-                        echo $oldImage;
                         if (file_exists($path.'/'.$oldImage) && $oldImage != 'no.png')
                         {
-                            unlink($path.'/'.$oldImage);
+                            unlink($path.'/'.$oldImage);  // and if so, we delete the old file
 
                         }
                     }
@@ -275,6 +274,50 @@ class Admin extends CI_Controller
 
     public function deleteItem()
     {
+        if(adminLoggedIn()){
+            if ($this->input->is_ajax_request())
+            {
 
+                $cId = $this->input->post('text',true);
+                if (!empty($cId) && isset($cId))
+                {
+                    $cId=$this->encryption->decrypt($cId);
+                    $oldImage = $this->modAdmin->getImageItem($cId); // get id image to also delete it from file
+                    if(!empty($oldImage) && count($oldImage) == 1)
+                    {
+                        $realImage=$oldImage[0]['path'];
+                    }
+                    $checkDelete=$this->modAdmin->deleteItem($cId);
+                    if($checkDelete)
+                    {
+                        if(!empty($realImage) && isset($realImage) && $realImage!='no.png') // we check we have an image name, and it is not the default one
+                        {
+                            $path=realpath(APPPATH.'../assets/custom/img/item/');
+                            if (file_exists($path.'/'.$realImage) && $realImage != 'no.png')
+                            {
+                                unlink($path.'/'.$realImage);  // and if so, we delete the old file
+
+                            }
+                        }
+                        $data['return']=true;
+                        $data['message']='successfully deleted!';
+                        echo json_encode($data);
+                    }else{
+                        $data['return']=false;
+                        $data['message']='You cannot delete this item right now.';
+                        echo json_encode($data);
+                    }
+                }else{
+                    $data['return']=false;
+                    $data['message']='value not exists';
+                    echo json_encode($data);
+                }
+
+            }else{
+                setFlashdata('alert-danger','Something went wrong.','admin/showAllItem');
+            }
+        }else{
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
+        }
     }
 }
