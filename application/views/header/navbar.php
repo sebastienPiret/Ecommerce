@@ -27,13 +27,15 @@
     </div>
     <div class="container main-menu">
         <div class="row align-items-center justify-content-between d-flex">
-            <a href="index.html"><img src="<?php echo base_url('assets/bakery/img/logo.png')?> " alt="" title="" /></a>
+            <a href="<?php echo site_url('home'); ?>"><img src="<?php echo base_url('assets/bakery/img/logo.png')?> " alt="" title="" /></a>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li class="menu-active"><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="team.html">Team</a></li>
+                    <li class="menu-active"><a href="<?php echo site_url('home'); ?>">Home</a></li>
+                    <li><a href="<?php echo base_url('home/login'); ?>">Login</a></li>
+                    <li><a href="<?php echo base_url('home/about'); ?>">About</a></li>
+                    <li><a href="<?php echo base_url('home/menu'); ?>">Menu</a></li>
+                    <li><a href="<?php echo base_url('home/team'); ?>">Team</a></li>
+                    <!--
                     <li class="menu-has-children"><a href="">Blog</a>
                         <ul>
                             <li><a href="blog-home.html">Blog Home</a></li>
@@ -47,7 +49,9 @@
                         </ul>
                     </li>
                     <li><a href="elements.html">Elements</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    -->
+                    <li><a href="<?php echo base_url('home/cart'); ?>">Cart</a></li>
+                    <li><a href="<?php echo base_url('home/contact'); ?>">Contact</a></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>

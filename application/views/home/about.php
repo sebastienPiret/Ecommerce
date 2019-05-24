@@ -1,17 +1,15 @@
+
+
 <!-- start banner Area -->
-<section class="banner-area relative" id="home">
+<section class="banner-area relative about-banner" id="home">
     <div class="overlay overlay-bg"></div>
     <div class="container">
-        <div class="row fullscreen d-flex justify-content-center align-items-center">
-            <div class="banner-content col-lg-10 col-md-12 justify-content-center">
-                <h6 class="text-uppercase">Whenever we bake, bake with our heart</h6>
-                <h1>
-                    Love with baking items
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    About Us
                 </h1>
-                <p class="text-white mx-auto">
-                    Since Americans in the South began roasting pigs publicly, Barbecues have been a staple of North American living. For many, grilling becomes a routine mealtime activity.
-                </p>
-                <a href="#" class="primary-btn squire text-uppercase mt-10">Check Our Menu</a>
+                <p class="text-white link-nav"><a href="<?php echo base_url('home'); ?>">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="<?php echo base_url('home/about'); ?>"> About Us</a></p>
             </div>
         </div>
     </div>
@@ -41,94 +39,6 @@
     <img class="about-img" src="<?php echo base_url('assets/bakery/img/about-img.png')?>" alt="">
 </section>
 <!-- End home-about Area -->
-
-<!-- Start item-category Area -->
-<section class="item-category-area section-gap">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-12 pb-80 header-text text-center">
-                <h1 class="pb-10">Category of available items</h1>
-                <p>
-                    They are grilling celebrities in their own right.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="single-cat-item">
-                    <div class="thumb">
-                        <img class="img-fluid" src="<?php echo base_url('assets/bakery/img/c1.jpg')?>" alt="">
-                    </div>
-                    <a href="#"><h4>Pizzas</h4></a>
-                    <p>
-                        inappropriate behavior is often laughed off as “boys will be.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="single-cat-item">
-                    <div class="thumb">
-                        <img class="img-fluid" src="<?php echo base_url('assets/bakery/img/c2.jpg')?>" alt="">
-                    </div>
-                    <a href="#"><h4>Pains</h4></a>
-                    <p>
-                        inappropriate behavior is often laughed off as “boys will be.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="single-cat-item">
-                    <div class="thumb">
-                        <img class="img-fluid" src="<?php echo base_url('assets/bakery/img/c3.jpg')?>" alt="">
-                    </div>
-                    <a href="#"><h4>Burgers</h4></a>
-                    <p>
-                        inappropriate behavior is often laughed off as “boys will be.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="single-cat-item">
-                    <div class="thumb">
-                        <img class="img-fluid" src="<?php echo base_url('assets/bakery/img/c4.jpg')?>" alt="">
-                    </div>
-                    <a href="#"><h4>Viennoiseries</h4></a>
-                    <p>
-                        inappropriate behavior is often laughed off as “boys will be.
-                    </p>
-                </div>
-            </div>
-            <a class="primary-btn mx-auto mt-80" href="<?php echo base_url('home/menu'); ?>">View Full Menu</a>
-        </div>
-    </div>
-</section>
-<!-- End item-category Area -->
-
-<!-- Start about-video Area -->
-<section class="about-video-area section-gap">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 about-video-left">
-                <h6 class="text-uppercase">Brand new app to blow your mind</h6>
-                <h1>
-                    We’ve made a life <br>
-                    that will change you
-                </h1>
-                <p>
-                    <span>We are here to listen from you deliver exellence</span>
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-
-            </div>
-            <div class="col-lg-6 about-video-right justify-content-center align-items-center d-flex">
-                <a class="play-btn" href="https://www.youtube.com/watch?v=Yd91xhUHWHM"><img class="img-fluid mx-auto" src="<?php echo base_url('assets/bakery/img/play.png')?>" alt=""></a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End about-video Area -->
 
 <!-- Start review Area -->
 <section class="review-area section-gap relative">
@@ -277,3 +187,29 @@
     </div>
 </section>
 <!-- End review Area -->
+
+<!-- Start about-video Area -->
+<section class="about-video-area section-gap">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 about-video-left">
+                <h6 class="text-uppercase">Brand new app to blow your mind</h6>
+                <h1>
+                    We’ve made a life <br>
+                    that will change you
+                </h1>
+                <p>
+                    <span>We are here to listen from you deliver exellence</span>
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+
+            </div>
+            <div class="col-lg-6 about-video-right justify-content-center align-items-center d-flex">
+                <a class="play-btn" href="https://www.youtube.com/watch?v=Yd91xhUHWHM"><img class="img-fluid mx-auto" src="<?php echo base_url('assets/bakery/img/play.png')?>" alt=""></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End about-video Area -->

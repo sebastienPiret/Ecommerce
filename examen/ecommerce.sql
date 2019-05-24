@@ -42,15 +42,15 @@ INSERT INTO cities (postal,city) VALUES
     mail VARCHAR(150) NOT NULL UNIQUE,
     adress INT NULL,
     city INT NULL,
-    login VARCHAR(100) UNIQUE NOT NULL,
     mdp VARCHAR(100) NOT NULL,
+    link VARCHAR(20),
     role INT DEFAULT 1,
     FOREIGN KEY (adress) REFERENCES adress(id),
     FOREIGN KEY (city) REFERENCES cities(id),
     FOREIGN KEY (role) REFERENCES role(id))ENGINE=INNODB;
     
-INSERT INTO utilisateur (nom,prenom,mail,adress,city,login,mdp,role) VALUES
-	('Piret','Sebastien','sebpiret@gmail.com',2,1,'login','mdp',2);
+INSERT INTO utilisateur (nom,prenom,mail,adress,city,mdp,role) VALUES
+	('Piret','Sebastien','sebpiret@gmail.com',2,1,'mdp',2);
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE IF NOT EXISTS categories

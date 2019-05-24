@@ -72,8 +72,8 @@ class Admin extends CI_Controller
     // Check email and password are linked to admin
     public function checkAdmin()
     {
-        $data['mail']=$this->input->post('mail',true);
-        $data['mdp']=$this->input->post('mdp',true);
+        $data['mail']=html_escape($this->input->post('mail',true));
+        $data['mdp']=html_escape($this->input->post('mdp',true));
         $data['role']=2; // admin number
 
         if(!empty($data['mail']) && !empty($data['mdp']))
