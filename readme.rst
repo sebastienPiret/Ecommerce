@@ -24,17 +24,23 @@ Il faut gitClone le dossier présent à cette adresse:
 https://github.com/sebastienPiret/Ecommerce
 El le placer dans le répertoire correspondant à votre serveur local.
 
+<<<<<<< HEAD
 Le site est ensuite disponible simplement sur: http://localhost/ECommerce/
 Et la page d'administration: http://localhost/ECommerce/index.php/admin
 Pour se logger en admin, utilisez l'adresse mail@mail.com, et le mot de passe: mdp
 Ce login fonctionne également pour interagir dans le site public.
 
+=======
+>>>>>>> 659e44c31930a590eb4f9acaa56a575251863dc2
 Afin de tester les envois de mail, j'ai utilisé sendmail for gmail, disponible à cette adresse:
 https://technology.siprep.org/configuring-sendmail-for-gmail-on-a-wamp-server/
 L'installation se fait assez facilement en suivant leurs indications.
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 659e44c31930a590eb4f9acaa56a575251863dc2
 Dans la hiérarchie du dossier Git se trouve un dossier "examen", dans lequel se trouve quelques documents,
 ainsi que le fichier ecommerce.sql à executer dans votre moteur de db.
 Il y a également un dossier image, dans lequel se trouve qqes exemples d'images pour tester l'upload de fichiers
