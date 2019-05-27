@@ -30,8 +30,11 @@
             <a href="<?php echo site_url('home'); ?>"><img src="<?php echo base_url('assets/bakery/img/logo.png')?> " alt="" title="" /></a>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
+                    <?php if(userLoggedIn()){
+                        echo "<li style='color:saddlebrown;'>Bonjour ".$this->session->userdata('prenom').' '.$this->session->userdata('nom')."</li>";
+                    }?>
                     <li class="menu-active"><a href="<?php echo site_url('home'); ?>">Home</a></li>
-                    <li><a href="<?php echo base_url('login'); ?>">Login</a></li>
+                    <li><a href="<?php echo base_url('home/logout'); ?>">Logout</a></li>
 
                     <li><a href="<?php echo base_url('home/menu'); ?>">Menu</a></li>
                     <li><a href="<?php echo base_url('cart'); ?>">Cart</a></li>

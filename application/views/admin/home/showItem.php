@@ -39,6 +39,9 @@
                             <td>
                                 <?php echo $item->nomCategorie; ?>
                             </td>
+                            <td width=30%;>
+                                <?php echo $item->description; ?>
+                            </td>
                             <td>
                                 <img src="<?php echo base_url('assets/custom/img/item/'.$item->path) ?>" class="img-responsive img-edit">
                             </td>

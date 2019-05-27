@@ -10,7 +10,7 @@
             e.preventDefault(); // prevent default form submit
 
             $.ajax({
-                url: 'mail.php', // form action url
+                url: surl+'home/contactMail', // form action url
                 type: 'POST', // form submit method get/post
                 dataType: 'html', // request type html/json/xml
                 data: form.serialize(), // serialize form data
@@ -22,6 +22,7 @@
                     alert.html(data).fadeIn(); // fade in response data
                     form.trigger('reset'); // reset form
                     submit.attr("style", "display: none !important");; // reset submit button text
+                    location:location;
                 },
                 error: function(e) {
                     console.log(e)

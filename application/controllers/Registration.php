@@ -1,18 +1,31 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright 2019 sebastien Piret
  */
+
+//require 'PHPMailer/PHPMailerAutoload.php';
 
 class Registration extends CI_Controller
 {
     public function index()
     {
-        $this->load->view('header/header');
-        $this->load->view('header/css');
-        $this->load->view('header/navbar');
-        $this->load->view('home/registration');
-        $this->load->view('header/footer');
-        $this->load->view('header/htmlclose');
+        if(userLoggedIn())
+        {
+            $this->load->view('header/header');
+            $this->load->view('header/css');
+            $this->load->view('header/navbarUser');
+            $this->load->view('home/logout');
+            $this->load->view('header/footer');
+            $this->load->view('header/htmlclose');
+        }else {
+            $this->load->view('header/header');
+            $this->load->view('header/css');
+            $this->load->view('header/navbar');
+            $this->load->view('home/registration');
+            $this->load->view('header/footer');
+            $this->load->view('header/specialJs');
+            $this->load->view('header/htmlclose');
+        }
     }
 
     public function  newUser()
@@ -41,6 +54,8 @@ class Registration extends CI_Controller
                $userAdded=$this->modUser->addUser($data);
                if ($userAdded)
                {
+                   //$this->sendEmailUser($data);
+                   $this->sendEmailUser($data);
                    setFlashdata('alert-success','You are correctly registred, please check your email to confirm it before login.','registration');
                }
                else{
@@ -49,5 +64,86 @@ class Registration extends CI_Controller
             }
 
         }
+    }
+
+    public function activateAccount($link)
+    {
+        if(!empty($link) && isset($link))
+        {
+            $user=$this->modUser->checkLink($link);
+
+            if(count($user)==1){
+                $userData['link']=$user[0]['link'].'ok';
+                $userData['role']=2;
+                $updatedUser=$this->modUser->activateUser($user[0]['id'],$userData);
+                if($updatedUser){
+                    setFlashdata('alert-success','Bravo! You\'ve correctly activated your account! Please login to begin shopping','login');
+                }else{
+                    setFlashdata('alert-danger','Something went wrong','registration');
+                }
+
+            }else{
+                setFlashdata('alert-danger','link not available, or expired','registration');
+            }
+        }
+        else{
+            setFlashdata('alert-danger','Check your mail and try again','registration');
+        }
+    }
+
+    private function sendEmailUser($data)
+    {
+        $userLink = site_url('registration/activateAccount/'.$data['link']);
+        $myData = '<p>'.ucfirst(strtolower($data['prenom'])).' '.ucfirst(strtolower($data['nom'])).', please click on this <a href="'.$userLink.'"> link </a>to activate your account.</p><br>';
+
+        $to       = $data['mail'];
+        $subject  = 'Bakery account activation';
+        $message  = $myData;
+        $headers  = 'From: sebquadris@gmail.com' . "\r\n" .
+            'MIME-Version: 1.0' . "\r\n" .
+            'Content-type: text/html; charset=utf-8';
+        if(mail($to, $subject, $message, $headers))
+            echo "Email sent";
+        else
+            echo "Email sending failed";
+
+        /*
+         * configuration in a server
+
+        $config= array(
+            'useragent'=>'CodeIgniter',
+            'protocol'=>'mail',
+            'mailpath'=>'/usr/sbin/sendmail',
+            'smtp_host'=>'localhost',
+            'smtp_user'=>'sebquadris@gmail.com',
+            'smtp_pass'=>'loginGmail',
+            'smtp_port'=>25,
+            'smtp_timeout'=>'55',
+            'wordwrap'=>TRUE,
+            'wrapchars'=>76,
+            'mailtype'=>'html',
+            'charset'=>'utf-8',
+            'validate'=>FALSE,
+            'priority'=>3,
+            'crlf'=>'\r\n',
+            'newline'=>'\r\n',
+            'bcc_batch_mode'=>FALSE,
+            'bcc_batch_size'=>200,
+        );
+        $this->email->initialize($config);
+
+        $this->email->from('sebpiret@hotmail.com');
+        $this->email->to($data['mail']);
+        $this->email->subject('Account activation');
+        $this->email->message($myData);
+        if($this->email->send())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+        */
+
     }
 }

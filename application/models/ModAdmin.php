@@ -50,7 +50,7 @@ class ModAdmin extends CI_Model
     public function fetchAllItem($limit,$start)
     {
         $this->db->limit($limit,$start);
-        $this->db->select('i.id, i.nom, price, path, i.categorie, c.nom AS nomCategorie');
+        $this->db->select('i.id, i.nom, price, path, description, i.categorie, c.nom AS nomCategorie');
         $this->db->from('item AS i');
         $this->db->join('categories AS c', 'i.categorie = c.id');
         $query= $this->db->get();

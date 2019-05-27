@@ -20,10 +20,13 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
+                                <!-- message -->
                                 <div>
-                                    <?php if ($this->session->flashdata('alert-warning')):
-                                     echo $this->session->flashdata('alert-warning');
-                                    endif; ?>
+                                    <?php if ($this->session->flashdata('class')):?>
+                                        <div class="alert <?php echo $this->session->flashdata('class');?> alert-dismissible role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span> </button>
+                                        <?php echo $this->session->flashdata('message');?>
+                                    <?php endif; ?>
                                 </div>
                                 <form class="user" action="<?php echo site_url('admin/checkAdmin')?>" method="post">
                                     <div class="form-group">

@@ -21,6 +21,16 @@
     <div class="container">
         <div class="row">
             <div class="map-wrap" style="width:100%; height: 445px;" id="map"></div>
+
+            <!-- message -->
+            <div>
+                <?php if ($this->session->flashdata('class')):?>
+                    <div class="alert <?php echo $this->session->flashdata('class');?> alert-dismissible role="alert">
+                    <button type=""button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span> </button>
+                    <?php echo $this->session->flashdata('message');?>
+                <?php endif; ?>
+            </div>
+
             <div class="col-lg-4 d-flex flex-column address-wrap">
                 <div class="single-contact-address d-flex flex-row">
                     <div class="icon">
@@ -53,7 +63,7 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <form class="form-area " id="myForm" action="mail.php" method="post" class="contact-form text-right">
+                <form class="form-area " id="myForm" action="<?php echo site_url('home/contactMail') ?>" method="post" class="contact-form text-right">
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
@@ -63,11 +73,13 @@
                             <input name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter subject'" class="common-input mb-20 form-control" required="" type="text">
                         </div>
                         <div class="col-lg-6 form-group">
-                            <textarea class="common-textarea form-control" name="message" placeholder="Enter Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required=""></textarea>
+                            <textarea class="common-textarea form-control" name="message" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required=""></textarea>
                         </div>
                         <div class="col-lg-12">
                             <div class="alert-msg" style="text-align: left;"></div>
-                            <button class="genric-btn primary" style="float: right;">Send Message</button>
+
+                            <input type="submit" value="Send message" class="btn" style="float: right;">
+
                         </div>
                     </div>
                 </form>

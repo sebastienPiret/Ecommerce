@@ -39,6 +39,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-sm-1 col-form-label col-form-label-sm">Description: </label>
+                    <div class="col-sm-4">
+                        <?php echo form_textarea('description',$item[0]['description'],'placeholder="Description" class="form-control" rows="3" cols="12"'); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="colFormLabelSm" class="col-sm-1 col-form-label col-form-label-sm">Categories: </label>
                     <div class="col-sm-4">
 

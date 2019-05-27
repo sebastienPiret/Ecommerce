@@ -32,17 +32,18 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-            <img id="icon" alt="Bienvenue!" />
-        </div>
+            <img id="icon" alt="Welcome!" />
 
+        </div>
+        <span class="error" aria-live="polite"></span>
         <!-- Login Form -->
-        <form action="<?php echo site_url('registration/newUser'); ?>" method="post">
+        <form novalidate action="<?php echo site_url('registration/newUser'); ?>" method="post">
 
             <input type="text" name="nom" id="first_name" class="fadeIn second" placeholder="First Name" value="<?php echo set_value('nom'); ?>">
 
             <input type="text" name="prenom" id="last_name" class="fadeIn second" placeholder="Last Name"value="<?php echo set_value('prenom'); ?>">
 
-            <input type="email" name="email" id="email" class="fadeIn third" placeholder="Email Address" value="<?php echo set_value('email'); ?>">
+            <input type="email" name="email" id="mail" class="fadeIn third" placeholder="Email Address" value="<?php echo set_value('email'); ?>">
 
             <input type="password" name="mdp" id="password" class="fadeIn third" placeholder="Password">
 
@@ -54,7 +55,7 @@
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-            <a class="underlineHover" href="<?php echo base_url('home/login'); ?>">Go to login page</a>
+            <a class="underlineHover" href="<?php echo base_url('login'); ?>">Go to login page</a>
         </div>
 
     </div>

@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright 2019 sebastien Piret
  */
@@ -7,7 +7,7 @@ class Admin extends CI_Controller
 {
     public function index()
     {
-        if($this->session->userdata('id')){
+        if(adminLoggedIn()){
             $this->load->view('admin/header/header');
             $this->load->view('admin/header/css');
             $this->load->view('admin/header/navbar');
@@ -63,9 +63,9 @@ class Admin extends CI_Controller
     {
         if($this->session->userdata('id')){
             $this->session->set_userdata('id','');
-            setFlashdata('alert-warning','You\'ve successfully logged out.','admin/login');
+            setFlashdata('alert-success','You\'ve successfully logged out.','admin/login');
         }else{
-            setFlashdata('alert-warning','Please login before accessing dashboard.','admin/login');
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
         }
     }
 
@@ -74,7 +74,8 @@ class Admin extends CI_Controller
     {
         $data['mail']=html_escape($this->input->post('mail',true));
         $data['mdp']=html_escape($this->input->post('mdp',true));
-        $data['role']=2; // admin number
+        $data['role']=3; // admin number
+        $data['mdp']=hash('sha224',$data['mdp']);
 
         if(!empty($data['mail']) && !empty($data['mdp']))
         {
@@ -84,7 +85,8 @@ class Admin extends CI_Controller
                     'id'=>$credential[0]['id'],
                     'mail'=>$credential[0]['mail'],
                     'nom'=>$credential[0]['nom'],
-                    'prenom'=>$credential[0]['prenom']
+                    'prenom'=>$credential[0]['prenom'],
+                    'role'=>$credential[0]['role']
                 );
                 $this->session->set_userdata($forSession);
                 if ($this->session->userdata('id')){
@@ -122,7 +124,7 @@ class Admin extends CI_Controller
 
         if(adminLoggedIn())
         {
-            $data['nom']=$this->input->post('itemName',true);
+            $data['nom']=html_escape($this->input->post('itemName',true));
 
             if(!empty($data['nom'])){
                 $path=realpath(APPPATH.'../assets/custom/img/item/');
@@ -139,8 +141,9 @@ class Admin extends CI_Controller
                 }else{
                     $fileName=$this->upload->data('file_name');
                     $data['path']=$fileName;
-                    $data['price']=$this->input->post('itemPrice',true);
+                    $data['price']=html_escape($this->input->post('itemPrice',true));
                     $data['categorie']=$this->input->post('itemCategory',true)+1;
+                    $data['description']=html_escape($this->input->post('description',true));
                 }
                 $checkData=$this->modAdmin->checkItem($data);
                 if($checkData->num_rows()>0){
@@ -247,6 +250,7 @@ class Admin extends CI_Controller
                 }
                 $data['price']=$this->input->post('itemPrice',true);
                 $data['categorie']=$this->input->post('itemCategory',true)+1;
+                $data['description']=$this->input->post('description',true);
 
                 $reply=$this->modAdmin->updateItem($data,$XID);
                 if($reply)

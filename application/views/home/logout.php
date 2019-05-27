@@ -1,5 +1,4 @@
 
-
 <!-- start banner Area -->
 <section class="banner-area relative about-banner" id="home">
     <div class="overlay overlay-bg"></div>
@@ -25,15 +24,6 @@
     <?php endif; ?>
 </div>
 
-<!-- message -->
-<div>
-    <?php if (userLoggedIn()):?>
-        <div class="alert alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span> </button>
-        <?php echo 'Welcome '.$this->session->userdata('prenom').' '.$this->session->userdata('nom').'.';?>
-    <?php endif; ?>
-</div>
-
 <!-- Login form -->
 <div class="wrapper fadeInDown">
     <div id="formContent">
@@ -45,10 +35,9 @@
         </div>
 
         <!-- Login Form -->
-        <form action="<?php echo site_url('login/checkUser');?>" method="post">
-            <input type="text" id="email" class="fadeIn second" name="login" placeholder="Email Address" value="<?php echo set_value('login'); ?>">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password" >
-            <input type="submit" class="fadeIn fourth" value="Log In">
+        <form action="<?php echo site_url('login/logOut');?>" method="post">
+
+            <input type="submit" class="fadeIn fourth" value="Log Out">
         </form>
 
         <!-- Remind Passowrd -->
