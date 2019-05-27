@@ -77,18 +77,19 @@ class ModUser extends CI_Model
 
     /* fetch order. $id returns a single record */
     public function getOrder($id){
-        $this->db->select('o.*, c.name, c.email, c.phone, c.address');
-        $this->db->from('commande AS o');
-        $this->db->join('utilisateur AS c', 'c.id = o.customer_id', 'left');
-        $this->db->where('o.id', $id);
+        // get order
+        $this->db->select('c.*, u.id, u.nom, u.prenom, u.adress');
+        $this->db->from('commande AS c');
+        $this->db->join('utilisateur AS u', 'u.id = c.utilisateur', 'left');
+        $this->db->where('c.utilisateur', $id);
         $query = $this->db->get();
         $result = $query->row_array();
 
         // Get order items
-        $this->db->select('i.*, p.image, p.name, p.price');
-        $this->db->from('commande_item AS i');
-        $this->db->join('utilisateur AS p', 'p.id = i.product_id', 'left');
-        $this->db->where('i.order_id', $id);
+        $this->db->select('c.*, i.path, i.nom, i.price');
+        $this->db->from('commande_item AS c');
+        $this->db->join('item AS i', 'i.id = c.commande_ID', 'left');
+        $this->db->where('c.commande_ID', $id);
         $query2 = $this->db->get();
         $result['items'] = ($query2->num_rows() > 0)?$query2->result_array():array();
 
@@ -96,11 +97,21 @@ class ModUser extends CI_Model
         return !empty($result)?$result:false;
     }
 
+    public function getCommande($id)
+    {
+        $this->db->select('c.*, i.item_ID, i.subtotal');
+        $this->db->from('commande AS c');
+        $this->db->join('commande_item AS i', 'c.id = i.commande_ID');
+        $this->db->where('c.utilisateur', $id);
+        $query = $this->db->get();
+        return $result = $query->result_array();
+    }
+
     /* insert commande */
     public function insertOrder($data){
         // Add created and modified date if not included
         if(!array_key_exists("created", $data)){
-            $data['created'] = date("Y-m-d H:i:s");
+            $dateIn=$data['created'] = date("Y-m-d H:i:s");
         }
         if(!array_key_exists("modified", $data)){
             $data['modified'] = date("Y-m-d H:i:s");
@@ -108,18 +119,30 @@ class ModUser extends CI_Model
 
         // Insert order data
         $insert = $this->db->insert('commande', $data);
+        /*
+        $this->db->select('id');
+        $this->db->from('commande');
+        $this->db->where('created',$data['created']);
 
+        $insertId=$this->db->get(); */
+        $query=$this->db->query("SELECT id FROM commande WHERE created = '$dateIn'");
+
+        $result = $query->result_array();
+
+        return $result[0]['id'];
         // Return the status
-        return $insert?$this->db->insert_id():false;
+        //return $insert?$this->db->insert_id():false;
+
     }
 
     /* insert commande_item */
-    public function insertOrderItems($data = array()) {
+    public function insertOrderItems($data = array(),$i) {
 
         // Insert order items
-        $insert = $this->db->insert_batch('commande_item', $data);
+
+        $this->db->insert('commande_item', $data[$i]);
 
         // Return the status
-        return $insert?true:false;
+        return $return='ok';
     }
 }

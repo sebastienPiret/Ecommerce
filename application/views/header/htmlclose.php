@@ -12,7 +12,7 @@
 <script src="<?php echo base_url('assets/bakery/js/owl.carousel.min.js') ?>" ></script>
 <script src="<?php echo base_url('assets/bakery/js/jquery.nice-select.min.js') ?>" ></script>
 <!-- Include jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script type="text/javascript">
     var surl="<?php echo site_url() ?>";
 </script>

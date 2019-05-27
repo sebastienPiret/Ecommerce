@@ -90,4 +90,16 @@ class ModAdmin extends CI_Model
     {
         return $this->db->delete('item',array('id'=>$id));
     }
+
+    public function getCommande()
+    {
+        $this->db->select('c.id,c.Total,u.nom,u.prenom,u.mail, i.nom AS nomItem');
+        $this->db->from('commande AS c');
+        $this->db->join('utilisateur AS u', 'c.utilisateur= u.id');
+        $this->db->join('commande_item AS ci', 'c.id=ci.commande_ID ');
+        $this->db->join('item AS i', 'ci.item_ID=i.id');
+
+        $query = $this->db->get();
+        return $result = $query->result_array();
+    }
 }

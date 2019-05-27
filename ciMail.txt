@@ -1,0 +1,44 @@
+sebpiret@gmail.com
+
+sebpiret@hotmail.com
+
+https://github.com/ivantcholakov/codeigniter-phpmailer
+
+https://technology.siprep.org/configuring-sendmail-for-gmail-on-a-wamp-server/
+
+http://mfikri.com/en/blog/codeigniter-chart
+
+https://www.codexworld.com/codeigniter-shopping-cart-checkout-implementation/
+
+
+
+La pizza Margherita est le nom d'une spécialité culinaire traditionnelle de la ville de Naples en Italie. Très populaire, cette pizza napoletana est garnie de tomates, de mozzarella, de basilic frais, de sel et d'huile d'olive. Cette pizza est aux couleurs du drapeau italien. 
+
+
+\wamp64\www\ECommerce\application\controllers\Cart.php:15:
+array (size=2)
+  'cartItems' => 
+    array (size=0)
+      empty
+  'order' => 
+    array (size=10)
+      'id' => string '3' (length=1)
+      'utilisateur' => string '3' (length=1)
+      'statut' => string '1' (length=1)
+      'Total' => string '62.00' (length=5)
+      'created' => string '2019-05-27 13:02:18' (length=19)
+      'modified' => string '2019-05-27 13:02:18' (length=19)
+      'nom' => string 'piret' (length=5)
+      'prenom' => string 'seb' (length=3)
+      'adress' => null
+      'items' => 
+        array (size=3)
+          0 => 
+            array (size=8)
+              ...
+          1 => 
+            array (size=8)
+              ...
+          2 => 
+            array (size=8)
+              ...

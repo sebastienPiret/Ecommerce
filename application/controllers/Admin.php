@@ -195,6 +195,25 @@ class Admin extends CI_Controller
         }
     }
 
+    public function showOrder()
+    {
+        if(adminLoggedIn())
+        {
+            $data['order']=$this->modAdmin->getCommande();
+
+            $this->load->view('admin/header/header');
+            $this->load->view('admin/header/css');
+            $this->load->view('admin/header/navbar');
+            $this->load->view('admin/home/showOrder',$data);
+            $this->load->view('admin/header/footer');
+            $this->load->view('admin/header/specialJs');
+            $this->load->view('admin/header/closehtml');
+        }else
+        {
+            setFlashdata('alert-danger','Please login before accessing dashboard.','admin/login');
+        }
+    }
+
     public function editItem($id)
     {
         if(adminLoggedIn()){

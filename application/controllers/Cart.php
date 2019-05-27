@@ -11,6 +11,9 @@ class Cart extends CI_Controller
 
         // Retrieve cart data from the session
         $data['cartItems'] = $this->cart->contents();
+        $data['order']=$this->modUser->getCommande($this->session->userdata('id'));
+        //var_dump($data);
+
         if(userLoggedIn())
         {
             $this->load->view('header/header');
@@ -31,6 +34,7 @@ class Cart extends CI_Controller
             //setFlashdata('alert-danger','you need to be logged in to view your cart.','cart/');
 
         }
+
     }
     public function updateItemQty(){
         $update = 0;
@@ -61,7 +65,7 @@ class Cart extends CI_Controller
         if($remove)
         {
             echo 'success';
-            return true;
+            //return true;
         }else{
             echo 'success';
             setFlashdata('alert-danger','you need to be logged in to view your cart.','cart/');

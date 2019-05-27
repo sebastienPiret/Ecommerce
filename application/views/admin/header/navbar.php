@@ -46,6 +46,7 @@
                     <a class="collapse-item" href="<?php echo site_url('admin/category'); ?>">Category</a>
                     <a class="collapse-item" href="<?php echo site_url('admin/item'); ?>">Add Item</a>
                     <a class="collapse-item" href="<?php echo site_url('admin/showAllItem'); ?>">Show Item</a>
+                    <a class="collapse-item" href="<?php echo site_url('admin/showOrder'); ?>">Show Order</a>
                 </div>
             </div>
         </li>

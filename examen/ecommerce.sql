@@ -51,8 +51,8 @@ INSERT INTO cities (postal,city) VALUES
     FOREIGN KEY (role) REFERENCES role(id))ENGINE=INNODB;
     
 INSERT INTO utilisateur (nom,prenom,mail,adress,city,mdp,role) VALUES
-	('Piret','Sebastien','sebquadris@gmail.com',2,1,'mdp',3),
-    ('Bruynbroeck','françois','mail@mail.com',6,3,'mdp',3);
+	('Piret','Sebastien','sebquadris@gmail.com',2,1,'4b59e8216b8799816c3766587207846522f59f400c74ee0d0a68a45e',3),
+    ('Bruynbroeck','françois','mail@mail.com',6,3,'4b59e8216b8799816c3766587207846522f59f400c74ee0d0a68a45e',3);
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE IF NOT EXISTS categories
@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS commande_item
     item_ID INT NOT NULL,
     subTotal float(10,2) NOT NULL,
     quantity INT unsigned NOT NULL,
+    FOREIGN KEY (item_ID) REFERENCES item(id),
     FOREIGN KEY (commande_ID) REFERENCES commande(id))ENGINE=INNODB;
 
 SET SQL_SAFE_UPDATES = 0;
