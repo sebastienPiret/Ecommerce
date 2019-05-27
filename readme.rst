@@ -1,53 +1,50 @@
-###################
-What is CodeIgniter
-###################
+#####################
+Projet Web: Ecommerce
+#####################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Il s'agissait donc de développer un site ecommerce.
+Le thème choisit est centré autours de la pâte à pain (pizzas, pains, burgers...).
 
-*******************
-Release Information
-*******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
-
-**************************
-Changelog and New Features
-**************************
-
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
 
 *******************
 Server Requirements
 *******************
 
 PHP version 5.6 or newer is recommended.
+Il y a cependant certain bug avec php 7 (deprecated function).
+Le serveur local utilisé est wamp, je n'ai pas testé avec d'autres.
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
 
 ************
 Installation
 ************
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+Il faut gitClone le dossier présent à cette adresse:
+https://github.com/sebastienPiret/Ecommerce
+El le placer dans le répertoire correspondant à votre serveur local.
+
+Afin de tester les envois de mail, j'ai utilisé sendmail for gmail, disponible à cette adresse:
+https://technology.siprep.org/configuring-sendmail-for-gmail-on-a-wamp-server/
+L'installation se fait assez facilement en suivant leurs indications.
+
+Dans la hiérarchie du dossier Git se trouve un dossier "examen", dans lequel se trouve quelques documents,
+ainsi que le fichier ecommerce.sql à executer dans votre moteur de db.
+Il y a également un dossier image, dans lequel se trouve qqes exemples d'images pour tester l'upload de fichiers
+dans le panneau admin.
 
 *******
 License
 *******
 
-Please see the `license
+CodeIgniter: Please see the `license
 agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+
+Deux templates ont été utilisé.
+Pour le design du site:
+https://colorlib.com/wp/template/bakery/
+Pour le design du panneau d'admin:
+https://startbootstrap.com/themes/sb-admin-2/
 
 *********
 Resources
