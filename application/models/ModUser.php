@@ -75,28 +75,6 @@ class ModUser extends CI_Model
         return !empty($result)?$result:false;
     }
 
-    /* fetch order. $id returns a single record */
-    public function getOrder($id){
-        // get order
-        $this->db->select('c.*, u.id, u.nom, u.prenom, u.adress');
-        $this->db->from('commande AS c');
-        $this->db->join('utilisateur AS u', 'u.id = c.utilisateur', 'left');
-        $this->db->where('c.utilisateur', $id);
-        $query = $this->db->get();
-        $result = $query->row_array();
-
-        // Get order items
-        $this->db->select('c.*, i.path, i.nom, i.price');
-        $this->db->from('commande_item AS c');
-        $this->db->join('item AS i', 'i.id = c.commande_ID', 'left');
-        $this->db->where('c.commande_ID', $id);
-        $query2 = $this->db->get();
-        $result['items'] = ($query2->num_rows() > 0)?$query2->result_array():array();
-
-        // Return fetched data
-        return !empty($result)?$result:false;
-    }
-
     public function getCommande($id)
     {
         $this->db->select('c.*, i.item_ID, i.subtotal');
@@ -119,19 +97,12 @@ class ModUser extends CI_Model
 
         // Insert order data
         $insert = $this->db->insert('commande', $data);
-        /*
-        $this->db->select('id');
-        $this->db->from('commande');
-        $this->db->where('created',$data['created']);
 
-        $insertId=$this->db->get(); */
         $query=$this->db->query("SELECT id FROM commande WHERE created = '$dateIn'");
 
         $result = $query->result_array();
 
         return $result[0]['id'];
-        // Return the status
-        //return $insert?$this->db->insert_id():false;
 
     }
 

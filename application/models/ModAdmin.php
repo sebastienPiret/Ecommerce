@@ -102,4 +102,22 @@ class ModAdmin extends CI_Model
         $query = $this->db->get();
         return $result = $query->result_array();
     }
+
+    public function getTotal()
+    {
+        return $this->db->select('SUM(total) AS tot')
+            ->from('commande')
+            ->get()
+            ->result_array();
+    }
+
+    public function getPie()
+    {
+        return $this->db->distinct('item_ID')
+            ->select('(subtotal * quantity) AS total, i.nom AS nom')
+            ->from('commande_item')
+            ->join('item AS i','item_ID=i.id')
+            ->get()
+            ->result_array();
+    }
 }

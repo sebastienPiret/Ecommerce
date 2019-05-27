@@ -8,10 +8,15 @@ class Admin extends CI_Controller
     public function index()
     {
         if(adminLoggedIn()){
+
+            $data['total']=$this->modAdmin->getTotal();
+            $data['element']=$this->modAdmin->getPie();
+
+
             $this->load->view('admin/header/header');
             $this->load->view('admin/header/css');
             $this->load->view('admin/header/navbar');
-            $this->load->view('admin/home/main');
+            $this->load->view('admin/home/main',$data);
             $this->load->view('admin/header/footer');
             $this->load->view('admin/header/specialJs');
             $this->load->view('admin/header/closehtml');

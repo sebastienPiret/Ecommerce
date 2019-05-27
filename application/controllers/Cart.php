@@ -28,7 +28,7 @@ class Cart extends CI_Controller
             $this->load->view('header/header');
             $this->load->view('header/css');
             $this->load->view('header/navbar');
-            $this->load->view('home/cart');
+            $this->load->view('home/cart',$data);
             $this->load->view('header/footer');
             $this->load->view('header/htmlclosebis');
             //setFlashdata('alert-danger','you need to be logged in to view your cart.','cart/');
